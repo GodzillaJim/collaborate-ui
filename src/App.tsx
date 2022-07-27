@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import NavigationBar from './components/navigation/NavigationBar'
+import Footer from './components/navigation/Footer'
+import HomeScreen from './screens/HomeScreen'
+import ContactUs from './screens/contacts'
+import { Provider } from 'react-redux'
+import store from './store'
+import ContactFormSubmitSuccess from './screens/contacts/success'
+import RegisterScreen from './screens/users/auth/register'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+  return <Provider store={store}>
+      <BrowserRouter>
+          <div className={'container-fluid app-root'}>
+              <div className={'row'}>
+                  <NavigationBar/>
+              </div>
+              <div className={'row content-body'}>
+                  <Routes>
+                      <Route path={'/user'}>
+                          <Route path={'auth'}>
+                              <Route path={'register'} element={<RegisterScreen/>} />
+                          </Route>
+                      </Route>
+                      <Route path={'/contact/success'} element={<ContactFormSubmitSuccess/>}/>
+                      <Route path={'/contact'} element={<ContactUs/>} />
+                      <Route path={'/'} element={<HomeScreen/>} />
+                  </Routes>
+              </div>
+              <div className={'row'}>
+                  <Footer/>
+              </div>
+          </div>
+      </BrowserRouter>
+  </Provider>
 }
 
-export default App;
+export default App
