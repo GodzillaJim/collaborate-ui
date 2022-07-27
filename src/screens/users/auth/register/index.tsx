@@ -5,6 +5,7 @@ import { object, string } from 'yup'
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
 import { registerUserAction } from '../../../../store/actions/user/auth'
 import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 
 const RegisterScreen = () => {
   const dispatch = useAppDispatch()
@@ -79,6 +80,9 @@ const RegisterScreen = () => {
                 </button>
               </div>
             </form>
+          </div>
+          <div className={'card-footer'}>{'Already have an account? '}
+            <Link to={'/user/auth/login'}>Login Here</Link>
           </div>
         </div>
       </div>

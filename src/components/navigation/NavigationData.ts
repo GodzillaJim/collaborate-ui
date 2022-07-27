@@ -8,5 +8,6 @@ export default [
   }, {
     name: 'Contact Us',
     href: '/contact'
-  }
+  }, { name: 'Register', href: '/user/auth/register' },
+  { name: 'Login', href: '/user/auth/login' }
 ]
