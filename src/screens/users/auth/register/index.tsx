@@ -1,11 +1,16 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import { IRegistrationForm } from '../../../../types'
-import { object, ref, string } from 'yup'
-import { isEmpty } from 'lodash'
+import { object, string } from 'yup'
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
+import { registerUserAction } from '../../../../store/actions/user/auth'
+import { useNavigate } from 'react-router'
 
 const RegisterScreen = () => {
-  const { handleSubmit, touched, errors, values, isValid } = useFormik<IRegistrationForm>({
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const { loading, error, success } = useAppSelector(state => state.registerUser)
+  const { handleSubmit, touched, errors, values, setFieldValue } = useFormik<IRegistrationForm>({
     initialValues: {
       firstName: '', lastName: '', email: '', password: '', confirmPassword: ''
     },
@@ -14,13 +19,24 @@ const RegisterScreen = () => {
       lastName: string().required('Please provide a last name'),
       email: string().required('Please provide an email').email('Please provide a valid email'),
       password: string().required('Please provide a password').min(6, 'Password must be at least 6 characters long'),
-      passwordConfirmation: string()
-        .oneOf([ref('password'), null], 'Passwords must match')
+      confirmPassword: string().test('passwords-match', 'Passwords must match', function (value) {
+        return this.parent.password === value
+      })
     }),
-    onSubmit: (_form: IRegistrationForm) => {
-      // On submit form
+    onSubmit: (form: IRegistrationForm) => {
+      dispatch(registerUserAction(form))
     }
   })
+
+  React.useEffect(() => {
+    console.log(errors)
+  })
+
+  React.useEffect(() => {
+    if (success) {
+      navigate('/user/auth/register/success')
+    }
+  }, [success])
 
   return <div className={'container'}>
     <div className={'row justify-content-center'}>
@@ -28,36 +44,37 @@ const RegisterScreen = () => {
         <div className={'card w-100'}>
           <div className={'card-header'}>
             <h6>Register an Account</h6>
+            {error && <h6 className={'invalid-feedback'}>{error}</h6>}
           </div>
           <div className={'card-body'}>
             <form onSubmit={handleSubmit} className={'form'} noValidate>
               <div className={'form-group'}>
                 <label htmlFor={'firstName'} className={'form-label'}>First Name</label>
-                <input type={'text'} className={'form-control'} name={'firstName'} value={values.firstName}/>
-                {touched.firstName && <div className={'invalid-feedback'}>{errors.firstName}</div>}
+                <input disabled={loading} type={'text'} className={'form-control'} name={'firstName'} onChange={(e) => setFieldValue('firstName', e.target.value)} value={values.firstName}/>
+                {touched.firstName && <div className={'invalid-feedback d-block'}>{errors.firstName}</div>}
               </div>
               <div className={'form-group'}>
                 <label htmlFor={'lastName'} className={'form-label'}>Last Name</label>
-                <input type={'text'} className={'form-control'} name={'lastName'} value={values.lastName}/>
-                {touched.lastName && <div className={'invalid-feedback'}>{errors.lastName}</div>}
+                <input disabled={loading} type={'text'} className={'form-control'} name={'lastName'} value={values.lastName} onChange={(e) => setFieldValue('lastName', e.target.value)}/>
+                {touched.lastName && <div className={'invalid-feedback d-block'}>{errors.lastName}</div>}
               </div>
               <div className={'form-group'}>
                 <label htmlFor={'email'} className={'form-label'}>Email</label>
-                <input type={'email'} className={'form-control'} name={'email'} value={values.email}/>
-                {touched.email && <div className={'invalid-feedback'}>{errors.email}</div>}
+                <input disabled={loading} type={'email'} className={'form-control'} name={'email'} value={values.email} onChange={(e) => setFieldValue('email', e.target.value)}/>
+                {touched.email && <div className={'invalid-feedback d-block'}>{errors.email}</div>}
               </div>
               <div className={'form-group'}>
                 <label htmlFor={'password'} className={'form-label'}>Password</label>
-                <input type={'password'} className={'form-control'} name={'password'} value={values.password}/>
-                {touched.password && <div className={'invalid-feedback'}>{errors.password}</div>}
+                <input disabled={loading} type={'password'} className={'form-control'} name={'password'} value={values.password} onChange={(e) => setFieldValue('password', e.target.value)}/>
+                {touched.password && <div className={'invalid-feedback d-block'}>{errors.password}</div>}
               </div>
               <div className={'form-group'}>
                 <label htmlFor={'confirmPassword'} className={'form-label'}>Confirm Password</label>
-                <input type={'password'} className={'form-control'} name={'confirmPassword'} value={values.confirmPassword}/>
-                {touched.confirmPassword && <div className={'invalid-feedback'}>{errors.confirmPassword}</div>}
+                <input disabled={loading} type={'password'} className={'form-control'} name={'confirmPassword'} value={values.confirmPassword} onChange={(e) => setFieldValue('confirmPassword', e.target.value)}/>
+                {touched.confirmPassword && <div className={'invalid-feedback d-block'}>{errors.confirmPassword}</div>}
               </div>
               <div className={'form-group'}>
-                <button disabled={!isEmpty(errors) || !isValid} className={'btn btn-block btn-primary'} type={'submit'}>
+                <button disabled={loading} className={'btn btn-block btn-primary'} type={'submit'}>
                   <i className={'bi bi-person mx-1'} style={{ fontSize: '13px' }}></i><span>REGISTER</span>
                 </button>
               </div>

@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 import ContactFormSubmitSuccess from './screens/contacts/success'
 import RegisterScreen from './screens/users/auth/register'
+import RegisterSuccess from './screens/users/auth/register/success'
 
 const App = () => {
   return <Provider store={store}>
@@ -21,7 +22,10 @@ const App = () => {
                   <Routes>
                       <Route path={'/user'}>
                           <Route path={'auth'}>
-                              <Route path={'register'} element={<RegisterScreen/>} />
+                              <Route path={'register'}>
+                                  <Route path={'success'} element={<RegisterSuccess/>}/>
+                                  <Route path={''} element={<RegisterScreen/>} />
+                              </Route>
                           </Route>
                       </Route>
                       <Route path={'/contact/success'} element={<ContactFormSubmitSuccess/>}/>
