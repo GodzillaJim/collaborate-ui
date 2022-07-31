@@ -1,7 +1,7 @@
 import { AnyAction } from '@reduxjs/toolkit'
 import {
   LOGIN_USER_FAIL,
-  LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS,
+  LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER,
   REGISTER_USER_FAIL,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS
@@ -33,6 +33,8 @@ export const authReducer = (
       return { loading: false, error: null, auth: action.payload }
     case LOGIN_USER_FAIL:
       return { loading: false, error: action.payload, auth: null }
+    case LOGOUT_USER:
+      return { loading: false, error: null, auth: null }
     default:
       return state
   }

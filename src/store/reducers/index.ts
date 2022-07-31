@@ -1,11 +1,14 @@
 import { submitContactFormReducer } from './contact'
-import { AnyAction, Reducer, ReducersMapObject } from '@reduxjs/toolkit'
+import { AnyAction, ReducersMapObject } from '@reduxjs/toolkit'
 import { authReducer, registerUserReducer } from './user/auth'
+import {createTaskReducer, getTaskReducer} from "./tasks";
 
-const reducer: Reducer<any, AnyAction> | ReducersMapObject<any, AnyAction> = {
-  health: () => 'App is running',
+const reducer:  ReducersMapObject<any, AnyAction> = {
+  "health": () => 'App is running',
   submitContactForm: submitContactFormReducer,
   registerUser: registerUserReducer,
-  auth: authReducer
+  auth: authReducer,
+  createTask: createTaskReducer,
+  getTask: getTaskReducer
 }
 export default reducer

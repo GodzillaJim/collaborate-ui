@@ -11,7 +11,7 @@ export const submitContactFormAction = (form: IContactForm) => async (dispatch: 
     dispatch({ type: SUBMIT_CONTACT_FORM_REQUEST })
     console.log('Form', form)
     dispatch({ type: SUBMIT_CONTACT_FORM_SUCCESS })
-  } catch (e:any) {
-    dispatch({ type: SUBMIT_CONTACT_FORM_FAIL, payload: e.message || 'Something went wrong!' })
+  } catch (e: any) {
+    dispatch({ type: SUBMIT_CONTACT_FORM_FAIL, payload: e && e.message || 'Something went wrong!' })
   }
 }

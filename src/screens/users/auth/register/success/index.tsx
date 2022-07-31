@@ -9,7 +9,7 @@ const RegisterSuccess = () => {
                 <div className={'row'}>
                     <div className={'col'}>
                         <h1 className={'text-success'}>{`Thank you ${query.get('name') || ''}!!`}</h1>
-                        <h6>Check your email to get started!!</h6>
+                        <h6>Login to get started!!</h6>
                     </div>
                 </div>
             </div>

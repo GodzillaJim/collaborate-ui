@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/collaborate-ui.iml" filepath="$PROJECT_DIR$/.idea/collaborate-ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ms/collaborator/.idea/collaborator.iml" filepath="$PROJECT_DIR$/../ms/collaborator/.idea/collaborator.iml" />
     </modules>
   </component>
 </project>

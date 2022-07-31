@@ -1,15 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useFormik } from 'formik'
 import { ILoginForm } from '../../../../types'
 import { object, string } from 'yup'
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
 import { loginAction } from '../../../../store/actions/user/auth'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router'
+import { signIn } from '../../../../services/auth'
+import Facebook from '../../../../components/guest/login/Facebook'
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = React.useState(false)
   const dispatch = useAppDispatch()
-  const { loading, error } = useAppSelector(state => state.auth)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { loading, error, auth } = useAppSelector(state => state.auth)
+
+  useEffect(() => {
+    const state:any = location.state
+    if (auth) {
+      signIn(auth)
+      if (state && state.redirect) {
+        navigate(state.redirect)
+      }
+      navigate('/home')
+    }
+  }, [auth, location])
 
   const { handleSubmit, values, errors, touched, setFieldValue } = useFormik<ILoginForm>({
     initialValues: { email: '', password: '' },
@@ -56,6 +72,9 @@ const LoginScreen = () => {
                                 <button disabled={loading} className={'btn btn-primary btn-block'} type={'submit'}>LOGIN</button>
                             </div>
                         </form>
+                        <div className={'form-group'}>
+                            <Facebook/>
+                        </div>
                     </div>
                     <div className={'card-footer'}>
                         {'Don\'t have an account?'}<Link to={'/user/auth/register'}> <button className={'btn btn-link p-0'}>Create New Account</button></Link>

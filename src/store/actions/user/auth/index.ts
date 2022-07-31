@@ -6,11 +6,13 @@ import {
   REGISTER_USER_SUCCESS
 } from '../../../constants/user/auth'
 import { ILoginForm, IRegistrationForm } from '../../../../types'
+import axios from 'axios'
+import { AuthRoutes } from '../../../../types/services/constants/routes/auth'
 
 export const registerUserAction = (form: IRegistrationForm) => async (dispatch: AppDispatch) => {
   try {
     dispatch({ type: REGISTER_USER_REQUEST })
-    console.log(form)
+    await axios.post(AuthRoutes.REGISTER, form)
     dispatch({ type: REGISTER_USER_SUCCESS })
   } catch (e:any) {
     dispatch({ type: REGISTER_USER_FAIL, payload: e.message || 'Something went wrong! Try again later.' })
@@ -20,8 +22,8 @@ export const registerUserAction = (form: IRegistrationForm) => async (dispatch: 
 export const loginAction = (form: ILoginForm) => async (dispatch: AppDispatch) => {
   try {
     dispatch({ type: LOGIN_USER_REQUEST })
-    console.log(form)
-    dispatch({ type: LOGIN_USER_SUCCESS, payload: { token: 'token', firstName: 'John', avatar: 'https://thispersondoesnotexist.com' } })
+    const { data: { firstName, token, avatar } } = await axios.post(AuthRoutes.LOGIN, form)
+    dispatch({ type: LOGIN_USER_SUCCESS, payload: { token, firstName, avatar } })
   } catch (e:any) {
     dispatch({ type: LOGIN_USER_FAIL, payload: e.message || 'Something went wrong! Try again later' })
   }
