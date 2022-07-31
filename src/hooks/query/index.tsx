@@ -1,9 +1,9 @@
-import React from 'react'
-import { useLocation } from 'react-router'
+import React from "react";
+import { useLocation } from "react-router";
 
 const useQuery = () => {
-  const { search } = useLocation()
-  return React.useMemo(() => new URLSearchParams(search), [search])
-}
+  const { search } = useLocation();
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+};
 
-export default useQuery
+export default useQuery;
