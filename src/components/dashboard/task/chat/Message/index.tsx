@@ -66,20 +66,25 @@ export const MessageStranger = ({
   const image =
     avatar || "https://www.pngarts.com/files/5/User-Avatar-Free-PNG-Image.png";
   return (
-    <div className={"container bg-dark my-1 border-radius-sm"}>
-      <div className={"row px-1"}>
-        <div className={"col text-right"}>
-          <span className={"text-info message-name"}>{sender}</span>
-        </div>
-      </div>
+    <div id={"message-stranger-container"} className={"container bg-dark my-1 border-radius-sm"}>
       <div className={"row"}>
-        <div className={"col-11 text-right text-light p-0 message-text"}>
-          {message}
+        <div className={"col-xs-11 col-sm-11 col-md-11 p-0"}>
+          <div className={"row"}>
+            <div className={"col text-right"}>
+              <span className={"text-info message-name"}>{sender}</span>
+            </div>
+          </div>
+          <div className={"row"}>
+            <div className={"col text-right text-light p-0 message-text"}>
+              <span className={"mr-2"}>{message}</span>
+            </div>
+          </div>
         </div>
-        <div className={"col-1 p-0"}>
-          <img src={image} height={"24px"} alt={""} />
+        <div className={"col-xs-1 col-sm-1 col-md-1 p-0"}>
+          <img className={"img-fluid rounded-circle p-1"} src={image} height={"24px"} alt={""} />
         </div>
       </div>
+
       <div className={"row"}>
         <div className={"col text-right"}>
           <span className={"text-info message-date"}></span>

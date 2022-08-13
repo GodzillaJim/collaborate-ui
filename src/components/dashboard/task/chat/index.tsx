@@ -19,6 +19,7 @@ import {
 } from "../../../../store/constants/chat";
 import { SocketContext } from "../../../../context/socket";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router";
 
 const ChatContainer = () => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
@@ -32,7 +33,7 @@ const ChatContainer = () => {
   const [chats, setChats] = useState<any[]>([]);
 
   const io = useContext(SocketContext);
-
+  const  { id } = useParams()
   const { loading, error } = useAppSelector((state) => state.socket);
   const { auth } = useAppSelector((state) => state.auth);
 
@@ -46,8 +47,12 @@ const ChatContainer = () => {
     return { username, avatar: tempAvatar };
   }, [auth]);
 
+  useEffect(()=> {
+    console.log("Room",id)
+  })
+
   const sendMessages = (message: IChatMessage) => {
-    io.emit("chatMessage", message);
+    io.emit("chatMessage", { ...message, room: id });
   };
 
   const connectionHandler = () => {
@@ -68,13 +73,18 @@ const ChatContainer = () => {
     setChats([...chats, data]);
   };
 
-  React.useEffect(() => {
+  const startConnection = () => {
+    io.emit("joinRoom", { room: id })
     io.on("chatMessage", newMessageHandler);
     io.on("connect", connectionHandler);
     io.on("connect_error", connectionErrorHandler);
     io.on("disconnect", disconnectHandler);
-    io.connect();
-  }, [io, chats]);
+    io.connect()
+  }
+
+  React.useEffect(() => {
+    startConnection()
+  }, [io, chats, id]);
 
   useEffect(() => {
     setIsConnected(io.connected);
@@ -134,13 +144,13 @@ const ChatContainer = () => {
         <div className={"card-body bg-light chat-content"}>
           {getMessages().map((mess) =>
             mess.owner ? (
-              <div key={`key-${v4()}`} className={"row my-1"}>
+              <div key={`key-${v4()}`} className={"row my-1"} style={{ width:"fit-content" }}>
                 <div className={"col p-0"}>
                   <MessageMe {...mess} />
                 </div>
               </div>
             ) : (
-              <div key={`key-${v4()}`} className={"row my-1"}>
+              <div key={`key-${v4()}`} className={"row my-1 ml-auto"} style={{ width:"fit-content" }}>
                 <div className={"col p-0"}>
                   <MessageStranger {...mess} />
                 </div>
