@@ -14,8 +14,9 @@ import Dashboard from "./screens/Dashboard";
 import GuestLayout from "./components/guest/GuestLayout";
 import LogoutScreen from "./screens/users/auth/logout";
 import TaskScreen from "./screens/task";
+import { socket, SocketContext } from "./context/socket";
 
-const App = () => {
+const SocketWrapper = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -44,6 +45,14 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </Provider>
+  );
+};
+
+const App = () => {
+  return (
+    <SocketContext.Provider value={socket}>
+      <SocketWrapper />
+    </SocketContext.Provider>
   );
 };
 

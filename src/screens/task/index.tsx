@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getTaskAction } from "../../store/actions/tasks";
 import CodeEditor from "../../components/dashboard/task/CodeEditor";
 import DropdownSelect from "../../components/dashboard/task/CodeEditor/DropdownSelect";
+import ChatContainer from "../../components/dashboard/task/chat";
 
 const TaskScreen = () => {
   const { error, loading, task } = useAppSelector((state) => state.getTask);
@@ -40,10 +41,12 @@ const TaskScreen = () => {
                 </div>
               </div>
               <div className={"row"}>
-                <div className={"col-10"}>
+                <div className={"col-md-9 col-sm-12"}>
                   <CodeEditor />
                 </div>
-                <div className={"col-2"}>Hello world</div>
+                <div className={"col-md-3 p-0 col-sm-12"}>
+                  <ChatContainer />
+                </div>
               </div>
             </div>
           )}

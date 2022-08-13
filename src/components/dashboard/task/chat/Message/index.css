@@ -1,0 +1,12 @@
+.message-text{
+    font-size: 12px;
+}
+.message-name {
+    font-size: 11px;
+}
+.message-date{
+    font-size: 11px;
+}
+.border-radius-sm {
+    border-radius: 8px;
+}

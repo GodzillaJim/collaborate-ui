@@ -22,6 +22,17 @@ export const isAuthenticated = (
   return isNotLoggedIn();
 };
 
+export const getAuthenticatedUser = (): {
+  avatar: string;
+  firstName: string;
+} | null => {
+  const authUser = localStorage.getItem("auth");
+  if (authUser) {
+    const { avatar, firstName } = JSON.parse(authUser);
+    return { avatar, firstName };
+  }
+  return null;
+};
 export const getToken = () => {
   const authUser = localStorage.getItem("auth");
   if (authUser) {

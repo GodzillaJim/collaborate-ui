@@ -23,7 +23,6 @@ function Facebook() {
         fields="first_name, last_name, email, picture"
         className="btn btn-block btn-info"
         appId="579040103864510"
-        autoLoad
         onProfileSuccess={handleProfileSuccess}
         onFail={handleError}
         onSuccess={handleSuccess}

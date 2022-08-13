@@ -21,17 +21,18 @@ const CreateTaskModal = ({ show, handleClose }: IProps) => {
       navigate(`/home/task/${task._id}`);
     }
   }, [task, loading, error]);
-  const { values, touched, errors, submitForm, setFieldValue } = useFormik<{
-    taskName: string;
-  }>({
-    initialValues: { taskName: "" },
-    validationSchema: object().shape({
-      taskName: string().required("Please provide a name"),
-    }),
-    onSubmit: (val) => {
-      dispatch(createTaskAction(val));
-    },
-  });
+  const { values, touched, errors, submitForm, setFieldValue, handleSubmit } =
+    useFormik<{
+      taskName: string;
+    }>({
+      initialValues: { taskName: "" },
+      validationSchema: object().shape({
+        taskName: string().required("Please provide a name"),
+      }),
+      onSubmit: (val) => {
+        dispatch(createTaskAction(val));
+      },
+    });
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -39,7 +40,7 @@ const CreateTaskModal = ({ show, handleClose }: IProps) => {
         {error && <div className={"invalid-feedback d-block"}>{error}</div>}
       </Modal.Header>
       <Modal.Body>
-        <form className={"form"}>
+        <form noValidate onSubmit={handleSubmit} className={"form"}>
           <div className={"form-group"}>
             <label className={"form-label text-light"} htmlFor={"taskName"}>
               Task Display Name
