@@ -20,6 +20,7 @@ import {
 import { SocketContext } from "../../../../context/socket";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
+import Loading from "../../../common/Loading";
 
 const ChatContainer = () => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
@@ -33,7 +34,7 @@ const ChatContainer = () => {
   const [chats, setChats] = useState<any[]>([]);
 
   const io = useContext(SocketContext);
-  const  { id } = useParams()
+  const { id } = useParams();
   const { loading, error } = useAppSelector((state) => state.socket);
   const { auth } = useAppSelector((state) => state.auth);
 
@@ -47,9 +48,9 @@ const ChatContainer = () => {
     return { username, avatar: tempAvatar };
   }, [auth]);
 
-  useEffect(()=> {
-    console.log("Room",id)
-  })
+  useEffect(() => {
+    console.log("Room", id);
+  }, [id]);
 
   const sendMessages = (message: IChatMessage) => {
     io.emit("chatMessage", { ...message, room: id });
@@ -74,16 +75,16 @@ const ChatContainer = () => {
   };
 
   const startConnection = () => {
-    io.emit("joinRoom", { room: id })
+    io.emit("joinRoom", { room: id, username: chatUsername });
     io.on("chatMessage", newMessageHandler);
     io.on("connect", connectionHandler);
     io.on("connect_error", connectionErrorHandler);
     io.on("disconnect", disconnectHandler);
-    io.connect()
-  }
+    io.connect();
+  };
 
   React.useEffect(() => {
-    startConnection()
+    startConnection();
   }, [io, chats, id]);
 
   useEffect(() => {
@@ -101,6 +102,7 @@ const ChatContainer = () => {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [bottomRef.current, chats]);
+
   const getMessages = (): IMessage[] => {
     const temp = chats as IChatMessage[];
     return temp.map(
@@ -113,6 +115,7 @@ const ChatContainer = () => {
       })
     );
   };
+
   return (
     <div className={"card my-1"}>
       <div className={"card-header"}>
@@ -138,19 +141,29 @@ const ChatContainer = () => {
         </div>
       )}
       {loading && (
-        <div className={"card-body bg-light chat-content"}>Loading</div>
+        <div className={"card-body bg-light chat-content"}>
+          <Loading />
+        </div>
       )}
       {
         <div className={"card-body bg-light chat-content"}>
           {getMessages().map((mess) =>
             mess.owner ? (
-              <div key={`key-${v4()}`} className={"row my-1"} style={{ width:"fit-content" }}>
+              <div
+                key={`key-${v4()}`}
+                className={"row my-1"}
+                style={{ width: "fit-content" }}
+              >
                 <div className={"col p-0"}>
                   <MessageMe {...mess} />
                 </div>
               </div>
             ) : (
-              <div key={`key-${v4()}`} className={"row my-1 ml-auto"} style={{ width:"fit-content" }}>
+              <div
+                key={`key-${v4()}`}
+                className={"row my-1 ml-auto"}
+                style={{ width: "fit-content" }}
+              >
                 <div className={"col p-0"}>
                   <MessageStranger {...mess} />
                 </div>

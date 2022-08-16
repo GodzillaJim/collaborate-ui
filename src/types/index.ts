@@ -40,5 +40,6 @@ export interface ITask {
   owner: string;
   createdAt: Date;
   updatedAt: Date;
+  code: string;
   __v: number;
 }
