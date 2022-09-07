@@ -1,0 +1,7 @@
+.code-editor:first-child{
+    height: 0;
+}
+.no-height{
+    height: 0;
+    display: none;
+}

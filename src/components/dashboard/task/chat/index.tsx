@@ -75,8 +75,8 @@ const ChatContainer = () => {
   };
 
   const startConnection = () => {
-    io.emit("joinRoom", { room: id, username: chatUsername });
-    io.on("chatMessage", newMessageHandler);
+    io.emit("joinRoom", { room: `chat-${id}`, username: chatUsername });
+    io.on("newMessage", newMessageHandler);
     io.on("connect", connectionHandler);
     io.on("connect_error", connectionErrorHandler);
     io.on("disconnect", disconnectHandler);
@@ -85,7 +85,7 @@ const ChatContainer = () => {
 
   React.useEffect(() => {
     startConnection();
-  }, [io, chats, id]);
+  }, [io, id]);
 
   useEffect(() => {
     setIsConnected(io.connected);

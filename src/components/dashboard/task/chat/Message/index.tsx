@@ -40,7 +40,12 @@ export const MessageMe = ({
             </div>
           </div>
           <div className={"row"}>
-            <div className={"col text-light message-text"}>{message}</div>
+            <div
+              style={{ width: "min-content" }}
+              className={"col text-light message-text pb-1"}
+            >
+              {message}
+            </div>
           </div>
         </div>
       </div>
@@ -66,7 +71,10 @@ export const MessageStranger = ({
   const image =
     avatar || "https://www.pngarts.com/files/5/User-Avatar-Free-PNG-Image.png";
   return (
-    <div id={"message-stranger-container"} className={"container bg-dark my-1 border-radius-sm"}>
+    <div
+      id={"message-stranger-container"}
+      className={"container bg-dark my-1 border-radius-sm"}
+    >
       <div className={"row"}>
         <div className={"col-xs-11 col-sm-11 col-md-11 p-0"}>
           <div className={"row"}>
@@ -75,13 +83,21 @@ export const MessageStranger = ({
             </div>
           </div>
           <div className={"row"}>
-            <div className={"col text-right text-light p-0 message-text"}>
+            <div
+              style={{ width: "min-content" }}
+              className={"col text-right text-light p-0 pb-1 message-text"}
+            >
               <span className={"mr-2"}>{message}</span>
             </div>
           </div>
         </div>
         <div className={"col-xs-1 col-sm-1 col-md-1 p-0"}>
-          <img className={"img-fluid rounded-circle p-1"} src={image} height={"24px"} alt={""} />
+          <img
+            className={"img-fluid rounded-circle p-1"}
+            src={image}
+            height={"24px"}
+            alt={""}
+          />
         </div>
       </div>
 
