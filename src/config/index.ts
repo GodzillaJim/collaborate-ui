@@ -1,6 +1,6 @@
 export const config = {
   socket: {
-    host: process.env.REACT_APP_SOCKET_HOST || "localhost",
-    port: process.env.REACT_APP_SOCKET_PORT || 5000,
+    host: "http://dev-env.eba-a2rv6tdz.us-east-1.elasticbeanstalk.com",
+    port: "80",
   },
 };
