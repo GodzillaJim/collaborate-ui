@@ -1,6 +1,7 @@
 export class TaskRoutes {
   public static BASE_URL: string =
-    process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+    process.env.REACT_APP_BASE_URL ||
+    "http://http://dev-env.eba-a2rv6tdz.us-east-1.elasticbeanstalk.com:5000";
   /* Create new task, takes body: { name: string }  */
   public static get CREATE_TASK() {
     return this.BASE_URL + "/api/v1/task";
