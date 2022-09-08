@@ -1,6 +1,7 @@
 export class TaskRoutes {
   public static BASE_URL: string =
-    "http://http://dev-env.eba-a2rv6tdz.us-east-1.elasticbeanstalk.com";
+    "http://dev-env.eba-a2rv6tdz.us-east-1.elasticbeanstalk.com";
+
   /* Create new task, takes body: { name: string }  */
   public static get CREATE_TASK() {
     return this.BASE_URL + "/api/v1/task";
