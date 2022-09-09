@@ -1,6 +1,6 @@
 {
   "name": "collaborate-ui",
-  "proxy": "http://dev-env.eba-a2rv6tdz.us-east-1.elasticbeanstalk.com",
+  "proxy": "https://api.thejimna.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
