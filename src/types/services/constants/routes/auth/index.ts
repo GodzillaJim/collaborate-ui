@@ -1,5 +1,5 @@
 export class AuthRoutes {
-  public static BASE_URL = "https://api.thejimna.com";
+  public static BASE_URL = "";
   /* Gets firstName, lastName, email and password, returns success message */
   public static get REGISTER() {
     return this.BASE_URL + "/api/v1/auth/register";

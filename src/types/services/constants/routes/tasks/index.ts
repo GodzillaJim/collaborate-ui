@@ -1,5 +1,5 @@
 export class TaskRoutes {
-  public static BASE_URL = "https://api.thejimna.com";
+  public static BASE_URL = "";
 
   /* Create new task, takes body: { name: string }  */
   public static get CREATE_TASK() {
