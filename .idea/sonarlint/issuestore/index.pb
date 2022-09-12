@@ -9,8 +9,6 @@ Csrc/components/dashboard/navigation/components/AvatarMenu/index.css,e\d\ed86de
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 X
 (src/components/navigation/Navigation.css,8\0\80ff1b971b9b2fb933a97b7112e45af479f102dc
-@
-src/App.test.tsx,1\f\1fc1c06a0502bf303f8ba35e530938a98e7e35b2
 W
 'src/screens/contacts/ContactUs.test.tsx,2\7\2792907762063ed6c4641864028d552c8a5f9033
 T
@@ -19,10 +17,6 @@ V
 &src/components/dashboard/data/index.ts,0\8\0821e8b9fc137472e343d5820fd12f9c04659047
 R
 "src/sample/login/Facebook/index.ts,f\c\fc3e8ec6c1e2dd4486227cf116448e901bb02ea7
-R
-"src/store/actions/contact/index.ts,f\d\fd220f3f75f6dfda653b26744b0976f27fd502be
-T
-$src/store/actions/user/auth/index.ts,1\4\1428576e04d8c9a5340aa932bf34fefd43015dec
 T
 $src/store/constants/contact/index.ts,d\0\d0328df7430c3111efab6bef1d8530ad911568de
 Q
@@ -35,10 +29,6 @@ Q
 !src/store/reducers/tasks/index.ts,7\1\71e6c9165155efaeec6ffa3be20d9e35a2f1a961
 H
 src/test/config/index.ts,0\9\0943c558a80ce50c2d822a4b76f7867c766fdb8f
-a
-1src/types/services/constants/routes/auth/index.ts,0\6\06f81ee4f199b8759bcb5f59a3e3c2e7091d9844
-b
-2src/types/services/constants/routes/tasks/index.ts,e\0\e083f2af496ca26aface9608d2b38df7c9bf5851
 Y
 )src/components/dashboard/layout/index.tsx,7\b\7b7b3e53c616c5210c8a533abd0e4bd55726b280
 s
@@ -85,8 +75,6 @@ O
 src/screens/Dashboard/index.tsx,2\5\2545d4ee183eebb0805bd768dbd7c483ec5d8a18
 S
 #src/store/reducers/contact/index.ts,4\5\453dd70995624abf5bd01af976f15993c547c1d4
-P
- src/store/actions/tasks/index.ts,c\3\c37c7d2e6b00335e3830d1e9dfbc1e5edec2584a
 B
 src/store/index.ts,7\8\788f62f848ec0936ef56cb3abc11e629c69f787c
 d
@@ -97,8 +85,6 @@ f
 ,src/components/dashboard/task/chat/index.css,1\8\18d6dbfa2784907d93aead6c216b24af542cba11
 H
 src/sample/chat/index.ts,1\4\1459a0625328b737076f0cda595e882997d91e2a
-Q
-!src/store/constants/chat/index.ts,7\3\7329215f4c6008a6ee940ec2d0fa8231d89f98fe
 P
  src/store/reducers/chat/index.ts,c\c\cc21bd4cf1321841a33ed35fcf7cfe89861c85f3
 K
@@ -109,12 +95,8 @@ g
 7src/components/dashboard/task/CreateTaskModal/index.tsx,4\b\4bfd25e4ea90f430469fd46be0a88ed3331c77ca
 ]
 -src/components/guest/login/Facebook/index.tsx,7\7\77565f44561a3d5be617e482eb2349c288b92412
-L
-src/context/socket/index.tsx,f\c\fc3d94bb058eee888c488c7d9cd8dd4f61731b66
 J
 src/screens/task/index.tsx,8\7\8798b543ec242e6a55c21265fb9ce682088c2be6
-C
-src/config/index.ts,0\3\032e57e0fe40d4bfbf61efe7d8bd9c8ac84c077b
 ;
 src/App.tsx,8\3\835da56f32df714aaed6285a5b7fc3a7807851e4
 U
@@ -127,3 +109,17 @@ B
 src/types/index.ts,c\d\cd7a0a5ed00515f0d0cd32a8badd4ed5ef962af8
 =
 tsconfig.json,6\1\61ebb9fd6e8cf9082658121d5d81e297791dacd0
+A
+public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
+d
+4src/components/dashboard/task/chat/Message/index.tsx,a\4\a464690ca3f7a4ed1aacd215d62ef7612cd54fbb
+W
+'src/components/common/Loading/index.tsx,d\8\d86eeabc4ad05eb4c94a4c201fbb4807674c19d3
+b
+2src/components/dashboard/task/CodeEditor/index.tsx,f\e\feb644f2be1e09fc83e2cad26abd288195f0eff3
+\
+,src/components/dashboard/task/chat/index.tsx,c\a\cabb7e934bdd56890052ef8cd2609435c00f8d24
+C
+src/config/index.ts,0\3\032e57e0fe40d4bfbf61efe7d8bd9c8ac84c077b
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
