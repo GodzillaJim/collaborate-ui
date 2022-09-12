@@ -53,7 +53,7 @@ export const socketReducer = (
     case START_SOCKET_SUCCESS:
       return { loading: false, error: null, socket: action.payload };
     case START_SOCKET_FAIL:
-      return { loading: false, error: action.payload, socket: null };
+      return { loading: false, error: action.payload, socket: false };
     default:
       return state;
   }

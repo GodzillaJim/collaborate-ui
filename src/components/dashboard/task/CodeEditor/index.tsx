@@ -13,19 +13,22 @@ import "codemirror/mode/javascript/javascript";
 
 import "./index.scss";
 import "./index.css";
+import { Socket } from "socket.io-client";
 
 const CodeEditor = () => {
-  const socket = useContext(SocketContext);
+  const { error } = useAppSelector((state) => state.socket);
+  const io: Socket = useContext(SocketContext);
   const { auth } = useAppSelector((state) => state.auth);
   const [username, setUsername] = useState<string | null>(null);
   const { id } = useParams();
 
-  const [users, setUsers] = useState<any[]>([]);
+  const [_users, setUsers] = useState<any[]>([]);
   const [config, setConfig] = useState({
     mode: { name: "javascript" },
     theme: "material-darker",
     lineNumbers: true,
   });
+
   const [text, setText] = useState<string>("");
   const generateUsername = () => {
     if (auth && auth.firstName) {
@@ -35,13 +38,10 @@ const CodeEditor = () => {
   };
 
   const handleChange = (value: string) => {
-    socket.emit("sendText", { room: id, data: value, name: username });
+    io.emit("sendText", { room: id, data: value, name: username });
   };
 
   useEffect(() => {
-    if (socket.disconnected) {
-      socket.connect();
-    }
     if (!username) {
       setUsername(generateUsername());
     }
@@ -49,39 +49,35 @@ const CodeEditor = () => {
 
   useEffect(() => {
     if (id) {
-      socket.emit("join", { name: username, room: id }, (error) => {
-        if (error) {
-          console.log(error);
+      io.emit("join", { name: username, room: id }, (err) => {
+        if (err) {
+          console.log(err);
           alert("Failed to connect room, " + error.message);
         }
       });
 
-      socket.on("text", ({ data }) => {
+      io.on("text", ({ data }) => {
         setText(data);
       });
 
-      socket.on("notification", (notification) => {
+      io.on("notification", (notification) => {
         console.log(notification);
       });
 
-      socket.on("changeMode", (mode) => {
+      io.on("changeMode", (mode) => {
         setConfig({ ...config, mode });
       });
 
-      socket.on("changeTheme", (theme) => {
+      io.on("changeTheme", (theme) => {
         setConfig({ ...config, theme });
       });
 
-      socket.on("roomData", ({ users: u, data }) => {
+      io.on("roomData", ({ users: u, data }) => {
         setUsers(u);
         setText(data);
       });
     }
   }, [id, auth]);
-
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
 
   useEffect(() => {
     const editors = document.getElementsByClassName("code-editor");

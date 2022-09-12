@@ -2,12 +2,14 @@ import React from "react";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import "./index.css";
+import { v4 } from "uuid";
 
 export interface IChatMessage {
   message: string;
   sender: string;
   avatar: string;
   date: Date;
+  id: string;
 }
 
 interface IChatInput {
@@ -30,6 +32,7 @@ const ChatInput = ({ username, avatar, handleSendMessage }: IChatInput) => {
         sender: username,
         avatar,
         date: new Date(),
+        id: `${username}-${v4()}`,
       });
       setFieldValue("message", "");
     },
@@ -52,7 +55,7 @@ const ChatInput = ({ username, avatar, handleSendMessage }: IChatInput) => {
               <button
                 disabled={!isValid}
                 type={"submit"}
-                className={"btn btn-dark"}
+                className={"btn btn-dark btn-sm text-light"}
               >
                 SEND
               </button>

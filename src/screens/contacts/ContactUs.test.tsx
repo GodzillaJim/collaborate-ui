@@ -1,10 +1,7 @@
 import ContactUs from "./index";
-import configureEnzyme from "../../test/config";
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { shallow } from "enzyme";
-
-configureEnzyme();
+import shallow from "react-test-renderer";
 
 describe("check all fields are present", () => {
   test("check form header text", () => {

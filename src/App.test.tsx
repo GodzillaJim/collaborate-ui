@@ -1,9 +1,7 @@
 import React from "react";
 import App from "./App";
 import { shallow } from "react-test-renderer";
-import configureEnzyme from "./test/config";
 
-configureEnzyme();
 describe("check app is rendered", () => {
   test("App is running", () => {
     const wrapper = shallow(<App />);

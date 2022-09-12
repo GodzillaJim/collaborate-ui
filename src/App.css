@@ -1,3 +1,8 @@
 .outlet {
   min-height: calc(100vh - 165px);
 }
+.custom-shadow {
+  box-shadow: 0 1px 0 0 rgba(117,115,115,0.75);
+  -webkit-box-shadow: 0 1px 0 0 rgba(117,115,115,0.75);
+  -moz-box-shadow: 0 1px 0 0 rgba(117,115,115,0.75);
+}

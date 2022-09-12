@@ -13,25 +13,23 @@ import "./index.css";
 import { useAppSelector } from "../../../../store/hooks";
 import { getAuthenticatedUser } from "../../../../services/auth";
 import { faker } from "@faker-js/faker";
-import {
-  START_SOCKET_FAIL,
-  START_SOCKET_SUCCESS,
-} from "../../../../store/constants/chat";
 import { SocketContext } from "../../../../context/socket";
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import Loading from "../../../common/Loading";
 
-const ChatContainer = () => {
+interface IChatContainer {
+  startSocket: () => void;
+  chats: IChatMessage[];
+  addChat: (message: IChatMessage) => void;
+}
+
+const ChatContainer = ({ startSocket, chats, addChat }: IChatContainer) => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
   const [chatUsername, setChatUsername] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
 
-  const dispatch = useDispatch();
-  const [ioError, setIoError] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [chats, setChats] = useState<any[]>([]);
 
   const io = useContext(SocketContext);
   const { id } = useParams();
@@ -48,48 +46,21 @@ const ChatContainer = () => {
     return { username, avatar: tempAvatar };
   }, [auth]);
 
-  useEffect(() => {
-    console.log("Room", id);
-  }, [id]);
-
   const sendMessages = (message: IChatMessage) => {
-    io.emit("chatMessage", { ...message, room: id });
+    io.emit("chatMessage", {
+      ...message,
+      room: id,
+    });
   };
 
-  const connectionHandler = () => {
-    setIsConnected(true);
-    dispatch({ type: START_SOCKET_SUCCESS, payload: true });
+  const newMessageHandler = (data: IChatMessage) => {
+    addChat(data);
   };
-
-  const connectionErrorHandler = (err: Error) => {
-    setIoError(err.message);
-    dispatch({ type: START_SOCKET_FAIL, payload: error.message });
-  };
-
-  const disconnectHandler = () => {
-    setIsConnected(false);
-  };
-
-  const newMessageHandler = (data: any) => {
-    setChats([...chats, data]);
-  };
-
-  const startConnection = () => {
-    io.emit("joinRoom", { room: `chat-${id}`, username: chatUsername });
-    io.on("newMessage", newMessageHandler);
-    io.on("connect", connectionHandler);
-    io.on("connect_error", connectionErrorHandler);
-    io.on("disconnect", disconnectHandler);
-    io.connect();
-  };
-
-  React.useEffect(() => {
-    startConnection();
-  }, [io, id]);
 
   useEffect(() => {
+    io.on("newMessage", newMessageHandler);
     setIsConnected(io.connected);
-  }, [io.active, io.connected]);
+  }, [id, io.connected]);
 
   useEffect(() => {
     const { username, avatar: tAvatar } = getUsername();
@@ -104,7 +75,7 @@ const ChatContainer = () => {
   }, [bottomRef.current, chats]);
 
   const getMessages = (): IMessage[] => {
-    const temp = chats as IChatMessage[];
+    const temp = chats || [];
     return temp.map(
       ({ message, avatar: tAvatar, date, sender }: IChatMessage) => ({
         message,
@@ -119,7 +90,7 @@ const ChatContainer = () => {
   return (
     <div className={"card my-1"}>
       <div className={"card-header"}>
-        <div className={"d-flex justify-content-between"}>
+        <div className={"d-flex justify-content-between text-light"}>
           <div>Chat Room</div>
           <div>
             <div className={"row"}>
@@ -135,18 +106,33 @@ const ChatContainer = () => {
           </div>
         </div>
       </div>
-      {(error || ioError) && (
-        <div className={"card-body bg-light chat-content"}>
-          {error || ioError}
+      {error && !loading && (
+        <div className={"card-body bg-dark chat-content"}>
+          <div className={"row my-3"}>
+            <div className={"col text-center text-light"}>{error}</div>
+          </div>
+          <div className={"row"}>
+            <div className={"col text-center"}>
+              <button className={"btn btn-info btn-sm"} onClick={startSocket}>
+                RETRY
+              </button>
+            </div>
+          </div>
         </div>
       )}
       {loading && (
-        <div className={"card-body bg-light chat-content"}>
-          <Loading />
+        <div className={"card-body bg-dark text-light chat-content"}>
+          <div className={"row"}>
+            <div className={"col text-center"}>
+              <div>
+                <Loading />
+              </div>
+            </div>
+          </div>
         </div>
       )}
-      {
-        <div className={"card-body bg-light chat-content"}>
+      {!error && !loading && (
+        <div className={"card-body bg-dark chat-content"}>
           {getMessages().map((mess) =>
             mess.owner ? (
               <div
@@ -172,7 +158,7 @@ const ChatContainer = () => {
           )}
           <div ref={bottomRef}></div>
         </div>
-      }
+      )}
       <div className={"card-footer footer-padding"}>
         <ChatInput
           handleSendMessage={sendMessages}

@@ -17,6 +17,7 @@ const DropdownSelect = () => {
         align={"start"}
         title={title}
         id={"language-dropdown-menu"}
+        size={"sm"}
       >
         {items.map(({ name }, index: number) => {
           return (
