@@ -10,7 +10,12 @@ export class TaskRoutes {
   public static get GET_TASK_BY_ID() {
     return this.BASE_URL + "/api/v1/task/id";
   }
+  /* Gets all tasks owned by a user*/
   public static get GET_USER_TASKS() {
-    return this.BASE_URL + "/api/v1/task/user"
+    return this.BASE_URL + "/api/v1/task/user";
+  }
+  /* Delete specific task*/
+  public static getDeleteTaskPath(id: string) {
+    return this.BASE_URL + `/api/v1/task/${id}`;
   }
 }

@@ -8,11 +8,16 @@ import {
   GET_TASKS_REQUEST,
   GET_TASK_FAIL,
   GET_TASK_REQUEST,
-  GET_TASK_SUCCESS, GET_TASKS_SUCCESS,
+  GET_TASK_SUCCESS,
+  GET_TASKS_SUCCESS,
+  DELETE_TASK_FAIL,
+  DELETE_TASK_REQUEST,
+  DELETE_TASK_SUCCESS,
 } from "../../constants/task";
 import axios from "axios";
 import { TaskRoutes } from "../../../types/services/constants/routes/tasks";
 import { getToken } from "../../../services/auth";
+import { AppDispatch } from "../..";
 
 export const createTaskAction =
   ({ taskName }: { taskName: string }) =>
@@ -52,10 +57,9 @@ export const getTaskAction = (id: string) => async (dispatch: Dispatch) => {
 export const getTasksAction = () => async (dispatch: Dispatch) => {
   try {
     dispatch({ type: GET_TASKS_REQUEST });
-    const { data } = await axios.get(
-        TaskRoutes.GET_USER_TASKS,
-        { headers: { Authorization: getToken() || "" } }
-    );
+    const { data } = await axios.get(TaskRoutes.GET_USER_TASKS, {
+      headers: { Authorization: getToken() || "" },
+    });
     dispatch({ type: GET_TASKS_SUCCESS, payload: data.data });
   } catch (e: any) {
     dispatch({
@@ -64,3 +68,20 @@ export const getTasksAction = () => async (dispatch: Dispatch) => {
     });
   }
 };
+
+export const deleteTaskAction =
+  (taskId: string) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch({ type: DELETE_TASK_REQUEST });
+      await axios.delete(TaskRoutes.getDeleteTaskPath(taskId), {
+        headers: { Authorization: getToken() || "" },
+      });
+      dispatch({ type: DELETE_TASK_SUCCESS });
+      dispatch(getTasksAction());
+    } catch (e: any) {
+      dispatch({
+        type: DELETE_TASK_FAIL,
+        payload: e.message || "Something went wrong, try again later.",
+      });
+    }
+  };

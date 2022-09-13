@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AvatarMenu from "./components/AvatarMenu";
 import { getDashboardMenu } from "../data";
 
@@ -9,9 +9,16 @@ const NavBar = () => {
   const isActive = React.useCallback((href: string) => {
     return href === pathname;
   }, []);
+
+  const navigate = useNavigate();
+
   return (
     <nav className="shadow-sm navbar py-1 px-2 navbar-light bg-light navbar-expand-lg home-navbar justify-content-between">
-      <a className="navbar-brand" href="#">
+      <a
+        className="navbar-brand"
+        href="#"
+        onClick={() => navigate("/home", { state: null })}
+      >
         COLLABOR@TE
       </a>
       <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
