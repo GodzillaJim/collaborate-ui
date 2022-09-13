@@ -10,4 +10,7 @@ export class TaskRoutes {
   public static get GET_TASK_BY_ID() {
     return this.BASE_URL + "/api/v1/task/id";
   }
+  public static get GET_USER_TASKS() {
+    return this.BASE_URL + "/api/v1/task/user"
+  }
 }

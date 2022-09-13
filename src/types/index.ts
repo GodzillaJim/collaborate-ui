@@ -38,8 +38,8 @@ export interface ITask {
   _id: string;
   name: string;
   owner: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   code: string;
   __v: number;
 }

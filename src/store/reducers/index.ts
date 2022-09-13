@@ -1,7 +1,7 @@
 import { submitContactFormReducer } from "./contact";
 import { AnyAction, ReducersMapObject } from "@reduxjs/toolkit";
 import { authReducer, registerUserReducer } from "./user/auth";
-import { createTaskReducer, getTaskReducer } from "./tasks";
+import {createTaskReducer, getTaskReducer, getTasksReducer} from "./tasks";
 import { chatMessagesReducer, sendMessageReducer, socketReducer } from "./chat";
 
 const reducer: ReducersMapObject<any, AnyAction> = {
@@ -14,5 +14,6 @@ const reducer: ReducersMapObject<any, AnyAction> = {
   sendMessage: sendMessageReducer,
   socket: socketReducer,
   chatMessages: chatMessagesReducer,
+  getTasks: getTasksReducer
 };
 export default reducer;

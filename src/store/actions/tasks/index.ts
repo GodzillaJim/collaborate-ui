@@ -4,9 +4,11 @@ import {
   CREATE_TASK_FAIL,
   CREATE_TASK_REQUEST,
   CREATE_TASK_SUCCESS,
+  GET_TASKS_FAIL,
+  GET_TASKS_REQUEST,
   GET_TASK_FAIL,
   GET_TASK_REQUEST,
-  GET_TASK_SUCCESS,
+  GET_TASK_SUCCESS, GET_TASKS_SUCCESS,
 } from "../../constants/task";
 import axios from "axios";
 import { TaskRoutes } from "../../../types/services/constants/routes/tasks";
@@ -43,6 +45,21 @@ export const getTaskAction = (id: string) => async (dispatch: Dispatch) => {
   } catch (e: any) {
     dispatch({
       type: GET_TASK_FAIL,
+      payload: (e && e.message) || "Something went wrong!",
+    });
+  }
+};
+export const getTasksAction = () => async (dispatch: Dispatch) => {
+  try {
+    dispatch({ type: GET_TASKS_REQUEST });
+    const { data } = await axios.get(
+        TaskRoutes.GET_USER_TASKS,
+        { headers: { Authorization: getToken() || "" } }
+    );
+    dispatch({ type: GET_TASKS_SUCCESS, payload: data.data });
+  } catch (e: any) {
+    dispatch({
+      type: GET_TASKS_FAIL,
       payload: (e && e.message) || "Something went wrong!",
     });
   }

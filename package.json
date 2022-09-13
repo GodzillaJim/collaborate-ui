@@ -2,6 +2,7 @@
   "name": "collaborate-ui",
   "proxy": "https://api.thejimna.com",
   "version": "0.1.0",
+  "allowedHosts": "all",
   "private": true,
   "dependencies": {
     "@greatsumini/react-facebook-login": "^3.2.1",
@@ -19,6 +20,7 @@
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "codemirror": "^5.58.2",
+    "date-fns": "^2.29.2",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "node-polyfill-webpack-plugin": "^2.0.1",

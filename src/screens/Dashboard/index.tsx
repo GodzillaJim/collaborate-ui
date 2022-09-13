@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CreateTaskModal from "../../components/dashboard/task/CreateTaskModal";
-
+import TaskList from "./components/TaskList"
 const Dashboard = () => {
   const [createTask, setCreateTask] = useState<boolean>(false);
   return (
@@ -21,6 +21,11 @@ const Dashboard = () => {
             show={createTask}
             handleClose={() => setCreateTask(!createTask)}
           />
+        </div>
+      </div>
+      <div className={"row"}>
+        <div className={"col"}>
+          <TaskList/>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import {
   CREATE_TASK_SUCCESS,
   GET_TASK_FAIL,
   GET_TASK_REQUEST,
-  GET_TASK_SUCCESS,
+  GET_TASK_SUCCESS, GET_TASKS_FAIL, GET_TASKS_REQUEST, GET_TASKS_SUCCESS,
 } from "../../constants/task";
 
 export const createTaskReducer = (
@@ -51,3 +51,18 @@ export const getTaskReducer = (
       return state;
   }
 };
+
+export const getTasksReducer = (state: { loading: boolean, error: any, tasks: ITask[] | null } = {
+  loading: false, error: null, tasks: null
+}, action: AnyAction) => {
+  switch (action.type) {
+    case GET_TASKS_REQUEST:
+      return { loading: true, error: null, tasks: null }
+    case GET_TASKS_SUCCESS:
+      return { loading:false, error: null, tasks: action.payload}
+    case GET_TASKS_FAIL:
+      return { loading: false, error: action.payload, tasks: null }
+    default:
+      return state;
+  }
+}
