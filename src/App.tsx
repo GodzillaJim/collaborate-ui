@@ -15,11 +15,14 @@ import GuestLayout from "./components/guest/GuestLayout";
 import LogoutScreen from "./screens/users/auth/logout";
 import TaskScreen from "./screens/task";
 import { socket, SocketContext } from "./context/socket";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SocketWrapper = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <ToastContainer />
         <Routes>
           <Route path={"/user"} element={<GuestLayout />}>
             <Route path={"auth"}>

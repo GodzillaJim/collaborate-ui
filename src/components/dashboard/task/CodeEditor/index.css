@@ -8,3 +8,9 @@
     height: 0;
     display: none;
 }
+.editor-min-height{
+    min-height: 410px;
+}
+.CodeMirror-scroll{
+    overflow: auto !important;
+}

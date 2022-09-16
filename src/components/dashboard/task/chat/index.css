@@ -3,9 +3,9 @@
     padding-left: 2px;
 }
 .chat-content{
-    min-height: 388px;
+    min-height: 300px;
     overflow: auto;
-    max-height: 400px;
+    max-height: 350px;
 }
 .chat-content::-webkit-scrollbar {
     width: 12px;
